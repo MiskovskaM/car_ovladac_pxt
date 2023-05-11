@@ -1,13 +1,17 @@
 //ovladani tlacitky
+let lastOsaX = 0;
+let lastOsaY = 0;
 let lastBtnA = 0;
 let lastBtnB = 0;
 let lastLogo = 0;
-let lastP2 = 0;
+let lastPinP0 = 0;
+let lastPinP1 = 0;
+let lastPinP2 = 0;
 
 function sendData() {
     let data = {
-        x: input.rotation(Rotation.Pitch),
-        y: input.rotation(Rotation.Roll),
+        x: input.acceleration(Dimension.X),
+        y: input.acceleration(Dimension.Y),
         a: input.buttonIsPressed(Button.A),
         b: input.buttonIsPressed(Button.B),
         l: input.logoIsPressed(),
@@ -20,17 +24,25 @@ function sendData() {
 }
 
 basic.forever(function () {
+    let osaX = input.acceleration(Dimension.X);
+    let osaY = input.acceleration(Dimension.Y);
     let btnA = input.buttonIsPressed(Button.A);
     let btnB = input.buttonIsPressed(Button.B);
     let logo = input.logoIsPressed();
-    let p2 = input.pinIsPressed(TouchPin.P2);
+    let pinP0 = input.pinIsPressed(TouchPin.P0);
+    let pinP1 = input.pinIsPressed(TouchPin.P1);
+    let pinP2 = input.pinIsPressed(TouchPin.P2);
 
-    if (+btnA != lastBtnA || +btnB != lastBtnB || +logo != lastLogo || +p2 != lastP2) {
+    if (+osaX != lastOsaX || +osaY != lastOsaY || +btnA != lastBtnA || +btnB != lastBtnB || +logo != lastLogo || +pinP0 != lastPinP0 || +pinP1 != lastPinP1 || +pinP2 != lastPinP2) {
         sendData();
     }
 
+    lastOsaX = +osaX;
+    lastOsaY = +osaY;
     lastBtnA = +btnA;
     lastBtnB = +btnB;
     lastLogo = +logo;
-    lastP2 = +p2;
+    lastPinP0 = +pinP0;
+    lastPinP1 = +pinP1;
+    lastPinP2 = +pinP2;
 })
