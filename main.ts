@@ -33,8 +33,20 @@ basic.forever(function () {
     let pinP1 = input.pinIsPressed(TouchPin.P1);
     let pinP2 = input.pinIsPressed(TouchPin.P2);
 
-    if (+osaX != lastOsaX || +osaY != lastOsaY || +btnA != lastBtnA || +btnB != lastBtnB || +logo != lastLogo || +pinP0 != lastPinP0 || +pinP1 != lastPinP1 || +pinP2 != lastPinP2) {
+    if (+btnA != lastBtnA || +btnB != lastBtnB || +logo != lastLogo || +pinP0 != lastPinP0 || +pinP1 != lastPinP1 || +pinP2 != lastPinP2) {
         sendData();
+    }
+
+    if (Math.abs(osaX)>50) {
+        sendData;
+    } else {
+        return;
+    }
+
+    if (Math.abs(osaY) > 50) {
+        sendData;
+    } else {
+        return;
     }
 
     lastOsaX = +osaX;
