@@ -32,8 +32,19 @@
 
 
 //spojeni microbitu
+radio.setGroup(22)
+radio.setFrequencyBand(6)
+
+let x = 0;
+let y = 0;
+let a = 0;
+let b = 0;
+let l = 0;
 let pitch = 0;
 let roll = 0;
+let p0 = 0;
+let p1 = 0;
+let p2 = 0;
 
 let data = {
     x: pitch,
