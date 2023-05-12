@@ -37,16 +37,8 @@ basic.forever(function () {
         sendData();
     }
 
-    if (Math.abs(osaX)>50) {
+    if (Math.abs(osaX) > 50 || Math.abs(osaY) > 50) {
         sendData;
-    } else {
-        return;
-    }
-
-    if (Math.abs(osaY) > 50) {
-        sendData;
-    } else {
-        return;
     }
 
     lastOsaX = +osaX;
