@@ -37,21 +37,24 @@ basic.forever(function () {
         sendData();
     }
 
-    if (Math.abs(x) >= 150 || Math.abs(y) >= 150) {
+    if (Math.abs(x) >= 100 && Math.abs(y) >= 100) {
         sendData();
     }
 
-    lastX = Math.round(x);
-    lastY = Math.round(y);
+    lastX = +x;
+    lastY = +y;
     lastBtnA = +btnA;
     lastBtnB = +btnB;
     lastLogo = +logo;
     lastP2 = +p2;
+
+    if (Math.abs(x) < 100 && Math.abs(y) < 100) {
+        radio.sendString("STOP");
+    }
 })
 
 basic.forever(function () {
-    console.logValue("X:", lastX);
-    console.logValue("Y:", lastY);
+    console.logValue("X", lastX);
+    console.logValue("Y", lastY);
     basic.pause(250);
 })
-
