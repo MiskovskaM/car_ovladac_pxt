@@ -9,6 +9,9 @@ let lastBtnB = 0;
 let lastLogo = 0;
 let lastP2 = 0;
 
+let calibrateX = 0;
+let calibrateY = 0;
+
 function sendData() {
     let data = {
         x: Math.round(input.acceleration(Dimension.X) / 1024 * 255),
@@ -24,6 +27,15 @@ function sendData() {
     radio.sendString(posliData);
 }
 
+input.onButtonPressed(Button.A, function () {
+    basic.showString("C");
+    basic.clearScreen();
+    calibrateX = input.acceleration(Dimension.X);
+    calibrateY = input.acceleration(Dimension.Y);
+    basic.showString("D");
+    basic.clearScreen();
+})
+
 basic.forever(function () {
     let x = input.acceleration(Dimension.X) / 1024 * 255;
     let y = input.acceleration(Dimension.Y) / 1024 * 255;
@@ -33,7 +45,6 @@ basic.forever(function () {
     let p2 = input.pinIsPressed(TouchPin.P2);
 
     if (+btnA !== lastBtnA || +btnB !== lastBtnB || +logo !== lastLogo || +p2 !== lastP2) {
-        //|| x != lastX || y != lastY
         sendData();
     }
 
