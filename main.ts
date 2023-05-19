@@ -48,8 +48,13 @@ basic.forever(function () {
         sendData();
     }
 
-    if (Math.abs(x) >= 100 && Math.abs(y) >= 100) {
+
+    if (Math.abs(x) >= 75 && Math.abs(y) >= 100) {
         sendData();
+    }
+
+    if (Math.abs(x) < 75 && Math.abs(y) < 100) {
+        radio.sendString("STOP");
     }
 
     lastX = +x;
@@ -58,10 +63,6 @@ basic.forever(function () {
     lastBtnB = +btnB;
     lastLogo = +logo;
     lastP2 = +p2;
-
-    if (Math.abs(x) < 100 && Math.abs(y) < 100) {
-        radio.sendString("STOP");
-    }
 })
 
 basic.forever(function () {
