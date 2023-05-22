@@ -19,4 +19,5 @@ function sendData() {
 
 basic.forever(function () {
    sendData();
+   basic.pause(50);
 })
