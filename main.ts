@@ -2,20 +2,10 @@
 radio.setGroup(54);
 radio.setFrequencyBand(7);
 
-let lastX = 0;
-let lastY = 0;
-let lastBtnA = 0;
-let lastBtnB = 0;
-let lastLogo = 0;
-let lastP2 = 0;
-
-let calibrateX = 0;
-let calibrateY = 0;
-
 function sendData() {
     let data = {
-        x: Math.round(input.acceleration(Dimension.X) / 1024 * 255),
-        y: Math.round(input.acceleration(Dimension.Y) / 1024 * 255),
+        x: Math.round((input.acceleration(Dimension.X) + 1024) / 1024 * 255),
+        y: Math.round((input.acceleration(Dimension.Y) + 1024) / 1024 * 255),
         a: input.buttonIsPressed(Button.A),
         b: input.buttonIsPressed(Button.B),
         l: input.logoIsPressed(),
@@ -27,46 +17,6 @@ function sendData() {
     radio.sendString(posliData);
 }
 
-input.onButtonPressed(Button.A, function () {
-    basic.showString("C");
-    basic.clearScreen();
-    calibrateX = input.acceleration(Dimension.X);
-    calibrateY = input.acceleration(Dimension.Y);
-    basic.showString("D");
-    basic.clearScreen();
-})
-
 basic.forever(function () {
-    let x = input.acceleration(Dimension.X) / 1024 * 255;
-    let y = input.acceleration(Dimension.Y) / 1024 * 255;
-    let btnA = input.buttonIsPressed(Button.A);
-    let btnB = input.buttonIsPressed(Button.B);
-    let logo = input.logoIsPressed();
-    let p2 = input.pinIsPressed(TouchPin.P2);
-
-    if (+btnA !== lastBtnA || +btnB !== lastBtnB || +logo !== lastLogo || +p2 !== lastP2) {
-        sendData();
-    }
-
-
-    if (Math.abs(x) >= 75 && Math.abs(y) >= 100) {
-        sendData();
-    }
-
-    if (Math.abs(x) < 75 && Math.abs(y) < 100) {
-        radio.sendString("STOP");
-    }
-
-    lastX = +x;
-    lastY = +y;
-    lastBtnA = +btnA;
-    lastBtnB = +btnB;
-    lastLogo = +logo;
-    lastP2 = +p2;
-})
-
-basic.forever(function () {
-    console.logValue("X", lastX);
-    console.logValue("Y", lastY);
-    basic.pause(250);
+   sendData();
 })
